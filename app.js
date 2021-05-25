@@ -60,6 +60,21 @@ app.get('/items/:id',(req,res)=>{
         res.render('item-detail',{item:result})
     })
 })
+
+app.delete('/items/:id',(req,res)=>{
+    const id=req.params.id;
+    Item.findByIdAndDelete(id).then(result=>{
+        res.json({redirect:'/get-items'})
+    })
+})
+
+app.put('/items/:id',(req,res)=>{
+    const id=req.params.id;
+    Item.findByIdAndUpdate(id, req.body).then(result=>{
+        res.json({msg: 'Updated successfully'})
+    })
+})
+
 app.use((req,res)=>{
     // res.sendFile('./views/error.html',{root:__dirname})
     res.render('error');
